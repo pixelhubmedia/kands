@@ -1,76 +1,127 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 export default function Navbar() {
-  const [menuOpen, setMenuOpen] = useState(false);
+  const [open, setOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 20);
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  const links = [
+    { label: "Services", href: "#services" },
+    { label: "Reviews", href: "#reviews" },
+    { label: "FAQ", href: "#faq" },
+    { label: "Find Us", href: "#location" },
+  ];
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-[#0f0f0f]/95 backdrop-blur border-b border-white/10">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
-        <a href="#" className="flex items-center gap-2">
-          <span className="text-xl font-bold tracking-tight text-white">
-            K <span className="text-amber-400">&</span> S{" "}
-            <span className="text-amber-400">Motors</span>
-          </span>
-        </a>
-
-        {/* Desktop */}
-        <nav className="hidden md:flex items-center gap-8 text-sm font-medium text-white/70">
-          <a href="#services" className="hover:text-amber-400 transition-colors">
-            Services
-          </a>
-          <a href="#reviews" className="hover:text-amber-400 transition-colors">
-            Reviews
-          </a>
-          <a href="#location" className="hover:text-amber-400 transition-colors">
-            Location
-          </a>
-          <a
-            href="tel:02086403550"
-            className="text-amber-400 font-semibold hover:text-amber-300 transition-colors"
-          >
-            020 8640 3550
-          </a>
-          <a
-            href="#enquiry"
-            className="bg-amber-400 text-black font-semibold px-4 py-2 rounded-full text-sm hover:bg-amber-300 transition-colors"
-          >
-            Get a Quote
-          </a>
-        </nav>
-
-        {/* Mobile */}
-        <button
-          className="md:hidden text-white/80 hover:text-white p-2"
-          onClick={() => setMenuOpen(!menuOpen)}
-          aria-label="Toggle menu"
-        >
-          <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            {menuOpen ? (
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-            ) : (
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-            )}
-          </svg>
-        </button>
+    <>
+      {/* Top bar */}
+      <div className="bg-forest text-white/80 text-[11px] tracking-wider text-center py-2 px-4 font-sans">
+        Free diagnostics quote &nbsp;·&nbsp; No work starts without your approval &nbsp;·&nbsp; Mitcham CR4 4DB
       </div>
 
-      {menuOpen && (
-        <div className="md:hidden bg-[#141414] border-t border-white/10 px-4 py-4 flex flex-col gap-4 text-sm font-medium">
-          <a href="#services" onClick={() => setMenuOpen(false)} className="text-white/70 hover:text-amber-400">Services</a>
-          <a href="#reviews" onClick={() => setMenuOpen(false)} className="text-white/70 hover:text-amber-400">Reviews</a>
-          <a href="#location" onClick={() => setMenuOpen(false)} className="text-white/70 hover:text-amber-400">Location</a>
-          <a href="tel:02086403550" className="text-amber-400 font-semibold">020 8640 3550</a>
-          <a
-            href="#enquiry"
-            onClick={() => setMenuOpen(false)}
-            className="bg-amber-400 text-black font-semibold px-4 py-2 rounded-full text-center"
-          >
-            Get a Quote
+      {/* Main nav */}
+      <header
+        className={`sticky top-0 z-50 bg-bone/96 backdrop-blur-sm transition-shadow ${
+          scrolled ? "shadow-sm" : ""
+        } border-b border-rule`}
+      >
+        <div className="max-w-6xl mx-auto px-5 sm:px-8 h-16 flex items-center justify-between">
+          {/* Logo */}
+          <a href="#" className="group">
+            <span
+              className="text-[22px] text-ink leading-none tracking-tight"
+              style={{ fontFamily: "var(--font-display)" }}
+            >
+              K&amp;S Motors
+            </span>
+            <span className="block text-[9px] tracking-[0.2em] uppercase text-ink-muted mt-0.5">
+              Mitcham, South London
+            </span>
           </a>
+
+          {/* Desktop nav */}
+          <nav className="hidden md:flex items-center gap-7 text-[13px] text-ink-muted">
+            {links.map((l) => (
+              <a
+                key={l.href}
+                href={l.href}
+                className="hover:text-ink transition-colors py-1"
+              >
+                {l.label}
+              </a>
+            ))}
+          </nav>
+
+          {/* Right actions */}
+          <div className="hidden md:flex items-center gap-5">
+            <a
+              href="tel:02086403550"
+              className="text-[13px] font-semibold text-ink hover:text-forest transition-colors"
+            >
+              020 8640 3550
+            </a>
+            <a
+              href="#enquiry"
+              className="bg-forest text-white text-[13px] font-semibold px-4 py-2 rounded hover:bg-forest-hover transition-colors"
+            >
+              Get a Quote
+            </a>
+          </div>
+
+          {/* Mobile toggle */}
+          <button
+            onClick={() => setOpen(!open)}
+            className="md:hidden text-ink p-1.5"
+            aria-label="Toggle navigation"
+          >
+            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              {open ? (
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8} d="M6 18L18 6M6 6l12 12" />
+              ) : (
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8} d="M4 7h16M4 12h16M4 17h16" />
+              )}
+            </svg>
+          </button>
         </div>
-      )}
-    </header>
+
+        {/* Mobile menu */}
+        {open && (
+          <div className="md:hidden bg-bone border-t border-rule px-5 py-4 space-y-1">
+            {links.map((l) => (
+              <a
+                key={l.href}
+                href={l.href}
+                onClick={() => setOpen(false)}
+                className="block py-2.5 text-[14px] text-ink-muted border-b border-rule/60 hover:text-ink"
+              >
+                {l.label}
+              </a>
+            ))}
+            <div className="pt-3 flex flex-col gap-3">
+              <a
+                href="tel:02086403550"
+                className="text-center bg-forest text-white text-sm font-semibold py-3 rounded"
+              >
+                Call 020 8640 3550
+              </a>
+              <a
+                href="#enquiry"
+                onClick={() => setOpen(false)}
+                className="text-center border border-rule text-ink text-sm py-3 rounded"
+              >
+                Send an Enquiry
+              </a>
+            </div>
+          </div>
+        )}
+      </header>
+    </>
   );
 }

@@ -1,94 +1,114 @@
-const services = [
+const categories = [
   {
-    icon: "🔧",
-    title: "Logbook Servicing",
-    description:
-      "Full manufacturer-schedule services that keep your warranty intact and your car running at its best.",
+    name: "Servicing",
+    services: [
+      { name: "Full service", desc: "Oil, all filters, fluids, belts, full safety check" },
+      { name: "Interim service", desc: "Oil and filter change, top-up fluids, brake inspection" },
+      { name: "Pre-sale inspection", desc: "Thorough check before you buy or sell a vehicle" },
+    ],
   },
   {
-    icon: "🛞",
-    title: "Brakes & Clutch",
-    description:
-      "Pad, disc, and clutch replacements using quality parts. We inspect and only replace what's needed.",
+    name: "Brakes",
+    services: [
+      { name: "Brake pads & discs", desc: "Supply and fit, all makes. We only replace what's needed." },
+      { name: "Brake fluid change", desc: "Recommended every two years to maintain stopping performance" },
+      { name: "Handbrake adjustment", desc: "Adjustment and cable replacement if required" },
+    ],
   },
   {
-    icon: "⚙️",
-    title: "Tyres & Wheel Alignment",
-    description:
-      "Supply and fit of all tyre brands, plus precision 4-wheel alignment to reduce wear and improve handling.",
+    name: "Engine & Electrics",
+    services: [
+      { name: "Engine diagnostics", desc: "Full fault code read on all systems — petrol and diesel" },
+      { name: "Engine repairs", desc: "Head gaskets, timing belts, mounts and general engine work" },
+      { name: "Battery & electrics", desc: "Battery testing and replacement, starter motors, alternators" },
+    ],
   },
   {
-    icon: "🔍",
-    title: "Engine Diagnostics",
-    description:
-      "Latest diagnostic equipment to read fault codes, identify issues fast, and save you guesswork.",
+    name: "Tyres & Wheels",
+    services: [
+      { name: "Supply and fit", desc: "Budget, mid-range and premium brands. All sizes." },
+      { name: "4-wheel alignment", desc: "Laser alignment to reduce tyre wear and improve handling" },
+      { name: "Tyre pressure sensors", desc: "TPMS sensor replacement and recalibration" },
+    ],
   },
   {
-    icon: "🚗",
-    title: "Suspension & Steering",
-    description:
-      "Shocks, struts, bushings, and steering components inspected and replaced to restore ride quality.",
+    name: "Suspension & Steering",
+    services: [
+      { name: "Shock absorbers & struts", desc: "Replacement for improved ride comfort and handling" },
+      { name: "Bushings & bearings", desc: "Wheel bearings, track rod ends, ball joints" },
+      { name: "Power steering", desc: "Fluid flush, rack and pinion repairs" },
+    ],
   },
   {
-    icon: "❄️",
-    title: "Air Conditioning",
-    description:
-      "AC regas, leak testing, and full system repair so you stay cool all summer.",
-  },
-  {
-    icon: "📋",
-    title: "MOT & Roadworthy",
-    description:
-      "Full pre-inspection check and repair service to make sure your vehicle passes first time.",
-  },
-  {
-    icon: "💨",
-    title: "Exhausts & Emissions",
-    description:
-      "Exhaust system repairs, replacements, and emissions testing for all petrol and diesel vehicles.",
+    name: "Other",
+    services: [
+      { name: "Air conditioning", desc: "Regas, leak testing and full AC system repairs" },
+      { name: "MOT preparation", desc: "Pre-MOT check and repairs so you pass first time" },
+      { name: "Exhausts & emissions", desc: "Exhaust repairs and replacement, catalytic converters" },
+    ],
   },
 ];
 
 export default function Services() {
   return (
-    <section id="services" className="py-24 bg-[#111111]">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6">
-        <div className="text-center mb-14">
-          <p className="text-amber-400 text-sm font-semibold tracking-widest uppercase mb-3">
-            What We Do
-          </p>
-          <h2 className="text-3xl sm:text-4xl font-extrabold text-white">
-            Our Services
-          </h2>
-          <p className="text-white/50 mt-3 max-w-md mx-auto">
-            Everything your vehicle needs, done right the first time.
-          </p>
+    <section id="services" className="py-20 bg-bone">
+      <div className="max-w-6xl mx-auto px-5 sm:px-8">
+        {/* Header */}
+        <div className="mb-14">
+          <p className="text-[11px] tracking-[0.2em] uppercase text-ink-muted mb-3">What we fix</p>
+          <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4">
+            <h2
+              className="text-4xl sm:text-5xl text-ink"
+              style={{ fontFamily: "var(--font-display)" }}
+            >
+              Our services
+            </h2>
+            <p className="text-[14px] text-ink-muted max-w-xs sm:text-right">
+              We work on all makes and models — petrol, diesel and hybrid. Call
+              us if your repair isn&apos;t listed.
+            </p>
+          </div>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-          {services.map((s) => (
-            <div
-              key={s.title}
-              className="bg-[#1a1a1a] rounded-2xl p-6 border border-white/5 hover:border-amber-400/30 transition-colors group"
-            >
-              <span className="text-3xl mb-4 block">{s.icon}</span>
-              <h3 className="text-white font-bold text-base mb-2 group-hover:text-amber-400 transition-colors">
-                {s.title}
-              </h3>
-              <p className="text-white/50 text-sm leading-relaxed">
-                {s.description}
+        {/* Service grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-10 gap-y-10">
+          {categories.map((cat) => (
+            <div key={cat.name}>
+              <p className="text-[10px] tracking-[0.2em] uppercase text-forest font-semibold mb-4">
+                {cat.name}
               </p>
+              <ul className="space-y-4">
+                {cat.services.map((s) => (
+                  <li key={s.name} className="border-t border-rule pt-4">
+                    <p className="text-[14px] font-semibold text-ink mb-0.5">{s.name}</p>
+                    <p className="text-[13px] text-ink-muted leading-snug">{s.desc}</p>
+                  </li>
+                ))}
+              </ul>
             </div>
           ))}
         </div>
 
-        <p className="text-center text-white/40 text-sm mt-10">
-          Don&apos;t see your repair listed?{" "}
-          <a href="#enquiry" className="text-amber-400 hover:underline">
-            Send us an enquiry
-          </a>{" "}
-          — we work on all makes and models.
-        </p>
+        {/* CTA */}
+        <div className="mt-14 pt-10 border-t border-rule flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+          <p className="text-[14px] text-ink-muted">
+            Not sure if we can help? Give us a call and we&apos;ll tell you straight.
+          </p>
+          <div className="flex items-center gap-4">
+            <a
+              href="tel:02086403550"
+              className="text-[14px] font-semibold text-forest hover:text-forest-hover transition-colors"
+            >
+              020 8640 3550
+            </a>
+            <a
+              href="#enquiry"
+              className="bg-forest text-white text-[13px] font-semibold px-5 py-2.5 rounded hover:bg-forest-hover transition-colors"
+            >
+              Get a Quote
+            </a>
+          </div>
+        </div>
       </div>
     </section>
   );

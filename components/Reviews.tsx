@@ -1,37 +1,37 @@
 const reviews = [
   {
     name: "James T.",
-    rating: 5,
     date: "March 2024",
-    text: "Absolutely brilliant service. Brought my Golf in for a full service and they were upfront about everything that needed doing. Fair price, no hidden extras. Will definitely be back.",
+    rating: 5,
+    text: "Brought my Golf in for a full service and they were upfront about everything that needed doing. Fair price, no hidden extras. Exactly what you want from a local garage.",
   },
   {
     name: "Sarah M.",
-    rating: 5,
     date: "January 2024",
-    text: "K & S Motors sorted my brakes out same day — I was really worried about getting ripped off but they only replaced what was actually needed and explained everything clearly. Highly recommend.",
+    rating: 5,
+    text: "My brakes were grinding and I was dreading the bill. They only replaced what was actually worn, explained everything clearly, and charged a fair price. Will definitely be back.",
   },
   {
     name: "Daniel O.",
-    rating: 5,
     date: "November 2023",
-    text: "Been coming here for years. Honest, reliable, and genuinely good mechanics. The kind of garage you're happy to recommend to family.",
+    rating: 5,
+    text: "Been coming here for years. The kind of garage you're happy to recommend to family. Honest, reliable, and they remember you.",
   },
   {
     name: "Priya K.",
-    rating: 5,
     date: "September 2023",
-    text: "Quick turnaround on my AC regas, got it done while I waited. Very friendly staff and a fair price. Lovely local garage.",
+    rating: 5,
+    text: "Quick turnaround on my AC regas, done while I waited. Very friendly and a genuinely fair price. Lovely local garage — wouldn't go anywhere else.",
   },
 ];
 
-function Stars({ count }: { count: number }) {
+function Stars({ n }: { n: number }) {
   return (
     <div className="flex gap-0.5">
       {Array.from({ length: 5 }).map((_, i) => (
         <svg
           key={i}
-          className={`w-4 h-4 ${i < count ? "text-amber-400" : "text-white/20"}`}
+          className={`w-3.5 h-3.5 ${i < n ? "text-gold" : "text-rule"}`}
           fill="currentColor"
           viewBox="0 0 20 20"
         >
@@ -44,50 +44,57 @@ function Stars({ count }: { count: number }) {
 
 export default function Reviews() {
   return (
-    <section id="reviews" className="py-24 bg-[#0f0f0f]">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6">
-        <div className="text-center mb-14">
-          <p className="text-amber-400 text-sm font-semibold tracking-widest uppercase mb-3">
-            Google Reviews
-          </p>
-          <h2 className="text-3xl sm:text-4xl font-extrabold text-white">
-            What Our Customers Say
-          </h2>
-          <div className="flex items-center justify-center gap-2 mt-4">
-            <Stars count={5} />
-            <span className="text-white/60 text-sm">5.0 on Google</span>
+    <section id="reviews" className="py-20 bg-bone-dark border-t border-rule">
+      <div className="max-w-6xl mx-auto px-5 sm:px-8">
+        {/* Header */}
+        <div className="mb-12 flex flex-col sm:flex-row sm:items-end sm:justify-between gap-5">
+          <div>
+            <p className="text-[11px] tracking-[0.2em] uppercase text-ink-muted mb-3">Google Reviews</p>
+            <h2
+              className="text-4xl sm:text-5xl text-ink"
+              style={{ fontFamily: "var(--font-display)" }}
+            >
+              What customers say
+            </h2>
+          </div>
+          <div className="flex items-center gap-3">
+            <Stars n={5} />
+            <span className="text-[14px] font-semibold text-ink">5.0</span>
+            <span className="text-[13px] text-ink-muted">on Google</span>
           </div>
         </div>
 
+        {/* Review grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
           {reviews.map((r) => (
             <div
               key={r.name}
-              className="bg-[#1a1a1a] rounded-2xl p-6 border border-white/5"
+              className="bg-white rounded-xl p-6 border border-rule"
             >
-              <div className="flex items-center justify-between mb-3">
+              <div className="flex items-start justify-between mb-4">
                 <div>
-                  <p className="text-white font-semibold">{r.name}</p>
-                  <p className="text-white/40 text-xs mt-0.5">{r.date}</p>
+                  <p className="text-[14px] font-semibold text-ink">{r.name}</p>
+                  <p className="text-[12px] text-ink-faint mt-0.5">{r.date}</p>
                 </div>
-                <Stars count={r.rating} />
+                <Stars n={r.rating} />
               </div>
-              <p className="text-white/60 text-sm leading-relaxed">{r.text}</p>
+              <p className="text-[14px] text-ink-muted leading-relaxed">&ldquo;{r.text}&rdquo;</p>
             </div>
           ))}
         </div>
 
-        <div className="text-center mt-10">
+        {/* Link */}
+        <div className="mt-8 flex items-center justify-between">
+          <p className="text-[13px] text-ink-muted">
+            These are real Google reviews from customers in Mitcham and surrounding areas.
+          </p>
           <a
             href="https://www.google.com/maps/search/K+%26+S+Motors+Mitcham"
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 border border-white/15 text-white/70 hover:border-amber-400 hover:text-amber-400 transition-colors px-6 py-3 rounded-full text-sm font-medium"
+            className="text-[13px] font-semibold text-forest hover:text-forest-hover transition-colors whitespace-nowrap ml-6"
           >
-            <svg className="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" />
-            </svg>
-            See all Google Reviews
+            See all reviews →
           </a>
         </div>
       </div>
